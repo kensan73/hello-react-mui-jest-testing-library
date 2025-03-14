@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { MyForm } from './MyForm';
-import { tableT1, tableA1 } from '../test/testFixtures';
+import { tableD1, tableB1 } from '../test/testFixtures';
 
-ReactDOM.render(<MyForm effectiveHoursToTableInfo={new Map([[60, [tableT1, tableA1]]])} initialTableSelection={[tableT1.id]} />, document.getElementById('root'));
+ReactDOM.render(<MyForm effectiveHoursToTableInfo={new Map([[60, [tableD1, tableB1]]])} initialTableSelection={[tableD1.id]} />, document.getElementById('root'));

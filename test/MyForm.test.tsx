@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import { MyForm } from "../src/MyForm"
-import { myExperience, tableA1, tableT1 } from "./testFixtures";
+import { reservationExperience, tableB1, tableD1 } from "./testFixtures";
 
 describe('MyForm', () => {
     it('has a header', () => {
@@ -8,6 +8,23 @@ describe('MyForm', () => {
 
         expect(screen.getByText(/hi world/i)).toBeInTheDocument();
     })
+
+    describe('toggle button group', () => {
+        it('has toggle buttons for experience, table sizing, and online availability', () => {
+            render(<MyForm effectiveHoursToTableInfo={new Map()} initialTableSelection={[]} />);
+
+            expect(screen.getByRole('button', { name: /experience/i })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: /table sizing/i })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: /online/i })).toBeInTheDocument();
+        })
+
+        it('experience by default is active', () => {
+            render(<MyForm effectiveHoursToTableInfo={new Map()} initialTableSelection={[]} />);
+
+            expect(screen.getByRole('button', { name: /experiences/i })).toHaveAttribute('aria-pressed', 'true');
+        })
+    })
+
 
     describe('table selection', () => {
         it('no initial tables results in no table options', async () => {
@@ -17,25 +34,25 @@ describe('MyForm', () => {
         })
 
         it('pass in 1 selected table, empty initial selection, table is not selected', () => {
-            render(<MyForm effectiveHoursToTableInfo={new Map([[60, [tableT1]]])} initialTableSelection={[]} />);
+            render(<MyForm effectiveHoursToTableInfo={new Map([[60, [tableD1]]])} initialTableSelection={[]} />);
 
             expect(screen.getAllByRole('checkbox')).toHaveLength(1);
             expect(screen.getByRole('checkbox')).not.toBeChecked();
         })
 
         it('pass in 1 selected table, table is selected', () => {
-            render(<MyForm effectiveHoursToTableInfo={new Map([[60, [tableT1]]])} initialTableSelection={[tableT1.id]} />);
+            render(<MyForm effectiveHoursToTableInfo={new Map([[60, [tableD1]]])} initialTableSelection={[tableD1.id]} />);
 
             expect(screen.getAllByRole('checkbox')).toHaveLength(1);
             expect(screen.getByRole('checkbox')).toBeChecked();
         })
 
         it('pass in 2 selected tables, just 1 initial selection, 1 table is selected', () => {
-            render(<MyForm effectiveHoursToTableInfo={new Map([[60, [tableT1, tableA1]]])} initialTableSelection={[tableT1.id]} />);
+            render(<MyForm effectiveHoursToTableInfo={new Map([[60, [tableD1, tableB1]]])} initialTableSelection={[tableD1.id]} />);
 
             expect(screen.getAllByRole('checkbox')).toHaveLength(2);
-            expect(screen.getByLabelText('T1')).toBeChecked();
-            expect(screen.getByLabelText('A1')).not.toBeChecked();
+            expect(screen.getByLabelText('D1')).toBeChecked();
+            expect(screen.getByLabelText('B1')).not.toBeChecked();
         })
     })
 })
