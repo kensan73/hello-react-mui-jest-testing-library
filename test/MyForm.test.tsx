@@ -26,6 +26,24 @@ describe('MyForm', () => {
     })
 
 
+    describe('tabs', () => {
+        it('has by experience and by room tabs', () => {
+            render(<MyForm effectiveHoursToTableInfo={new Map()} initialTableSelection={[]} />);
+
+            expect(screen.getByRole('tab', { name: /by experience/i })).toBeInTheDocument();
+            expect(screen.getByRole('tab', { name: /by room/i })).toBeInTheDocument();
+        })
+
+        it('has by experience selected by default', () => {
+            render(<MyForm effectiveHoursToTableInfo={new Map()} initialTableSelection={[]} />);
+
+            expect(screen.getByRole('tab', { name: /by experience/i })).toHaveAttribute('aria-selected', 'true');
+            expect(screen.getByRole('tab', { name: /by room/i })).toHaveAttribute('aria-selected', 'false');
+        })
+
+        // TODO: can switch tabs
+    })
+
     describe('table selection', () => {
         it('no initial tables results in no table options', async () => {
             render(<MyForm effectiveHoursToTableInfo={new Map()} initialTableSelection={[]} />);

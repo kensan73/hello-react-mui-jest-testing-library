@@ -1,7 +1,7 @@
-import { Typography } from "@material-ui/core";
+import { Tab, Tabs, Typography } from "@material-ui/core";
 import * as React from "react";
 import { Field, Form, Formik, FormikHelpers, FormikValues } from "formik";
-import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab";
+import { TabContext, TabPanel, ToggleButton, ToggleButtonGroup } from "@material-ui/lab";
 
 type ExperienceInfo = {
     id: string;
@@ -24,9 +24,10 @@ type OwnProps = {
 }
 
 type OptimizationType = 'experiences' | 'table sizing' | 'online availability';
-
+type TabType = 'by experience' | 'by room'
 type FormikProps = {
     optimizationType: OptimizationType,
+    selectedTab: TabType,
     selectedTables: TableId[],
     tablesForSelection: TableInfo[]
 }
@@ -37,11 +38,16 @@ export const MyForm: React.FC<OwnProps> = ({ initialTableSelection, effectiveHou
         tableInfos.forEach((tableInfo) => tablesForSelection.push(tableInfo))
     })
     return (
-        <Formik<FormikProps> initialValues={{ optimizationType: 'experiences', selectedTables: initialTableSelection, tablesForSelection }} onSubmit={() => Promise.resolve()}>
+        <Formik<FormikProps> initialValues={{ optimizationType: 'experiences', selectedTab: 'by experience', selectedTables: initialTableSelection, tablesForSelection }} onSubmit={() => Promise.resolve()}>
             {({ values, setFieldValue }) => {
                 const handleOptimizationChange = (event: any, optimizationType: string) => {
                     // manually update formik
                     setFieldValue('optimizationType', optimizationType);
+                };
+
+                const handleTabChange = (event: any, tabType: string) => {
+                    // manually update formik
+                    setFieldValue('selectedTab', tabType);
                 };
 
                 return <Form>
@@ -62,11 +68,20 @@ export const MyForm: React.FC<OwnProps> = ({ initialTableSelection, effectiveHou
                             online availability
                         </ToggleButton>
                     </ToggleButtonGroup>
-                    {/* <div role="group" name="optimizationType">
-                        <button value="experience">Experience</button>
-                        <button value="table sizing">Table sizing</button>
-                        <button value="online">Online</button>
-                    </div> */}
+                    <TabContext value='selectedTab'>
+                        <Tabs
+                            value={values.selectedTab}
+                            onChange={handleTabChange}
+                            indicatorColor="primary"
+                            textColor="primary"
+                            centered
+                        >
+                            <Tab label="by experience" value="by experience" />
+                            <Tab label="by room" value="by room" />
+                        </Tabs>
+                        <TabPanel value="by experience">By experience</TabPanel>
+                        <TabPanel value="by room">By room</TabPanel>
+                    </TabContext>
                     {values.tablesForSelection.map((tableInfo) => (
                         <div key={`checkbox-${tableInfo.id}`}>
                             <Field type="checkbox" name="selectedTables" value={`${tableInfo.id}`} id={`${tableInfo.id}`} />
