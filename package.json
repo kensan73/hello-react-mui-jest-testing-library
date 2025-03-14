@@ -30,7 +30,10 @@
     "testEnvironment": "jsdom",
     "transformIgnorePatterns": [
       "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"
-    ]
+    ],
+    "moduleDirectories": ["./node_modules", "src"],
+  "setupFilesAfterEnv": ["<rootDir>/jest.setup.ts"]
+
   },
   "jestrunner.jestCommand": "npm run test --",
   "jestrunner.debugOptions": {

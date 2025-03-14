@@ -4,4 +4,4 @@ type OwnProps = {
 
 }
 
-export const MyForm: React.FC<OwnProps> = () => (<></>)
+export const MyForm: React.FC<OwnProps> = () => (<>hi world</>)
