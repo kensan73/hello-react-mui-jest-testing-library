@@ -37,7 +37,10 @@ export const MyForm: React.FC<OwnProps> = ({ initialTableSelection, effectiveHou
                 return <Form>
                     <Typography>hi world</Typography>
                     {values.tablesForSelection.map((tableInfo) => (
-                        <Field type="checkbox" name="selectedTables" value={`${tableInfo.id}`} key={`checkbox-${tableInfo.id}`} />))}
+                        <div key={`checkbox-${tableInfo.id}`}>
+                            <Field type="checkbox" name="selectedTables" value={`${tableInfo.id}`} id={`${tableInfo.id}`} />
+                            <label htmlFor={`${tableInfo.id}`}>{tableInfo.name}</label>
+                        </div>))}
                 </Form>
             }}
         </Formik>);

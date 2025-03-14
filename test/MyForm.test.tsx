@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import { MyForm } from "../src/MyForm"
-import { myExperience, tableT1 } from "./testFixtures";
+import { myExperience, tableA1, tableT1 } from "./testFixtures";
 
 describe('MyForm', () => {
     it('has a header', () => {
@@ -28,6 +28,14 @@ describe('MyForm', () => {
 
             expect(screen.getAllByRole('checkbox')).toHaveLength(1);
             expect(screen.getByRole('checkbox')).toBeChecked();
+        })
+
+        it('pass in 2 selected tables, just 1 initial selection, 1 table is selected', () => {
+            render(<MyForm effectiveHoursToTableInfo={new Map([[60, [tableT1, tableA1]]])} initialTableSelection={[tableT1.id]} />);
+
+            expect(screen.getAllByRole('checkbox')).toHaveLength(2);
+            expect(screen.getByLabelText('T1')).toBeChecked();
+            expect(screen.getByLabelText('A1')).not.toBeChecked();
         })
     })
 })
