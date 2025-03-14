@@ -24,6 +24,7 @@
     "formik": "^2.4.6",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "prettier": "^3.5.3",
     "typescript": "^5.8.2"
   },
   "jest": {
@@ -31,9 +32,13 @@
     "transformIgnorePatterns": [
       "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"
     ],
-    "moduleDirectories": ["./node_modules", "src"],
-  "setupFilesAfterEnv": ["<rootDir>/jest.setup.ts"]
-
+    "moduleDirectories": [
+      "./node_modules",
+      "src"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest.setup.ts"
+    ]
   },
   "jestrunner.jestCommand": "npm run test --",
   "jestrunner.debugOptions": {
