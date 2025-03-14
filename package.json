@@ -17,6 +17,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-react": "^7.26.3",
+    "@babel/preset-typescript": "^7.26.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^12.1.5",
     "@types/jest": "^29.5.14",
@@ -29,6 +30,18 @@
     "testEnvironment": "jsdom",
     "transformIgnorePatterns": [
       "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"
+    ]
+  },
+  "jestrunner.jestCommand": "npm run test --",
+  "jestrunner.debugOptions": {
+    "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/react-scripts",
+    "runtimeArgs": [
+      "test",
+      "${fileBasename}",
+      "--runInBand",
+      "--no-cache",
+      "--watchAll=false",
+      "--color"
     ]
   }
 }
