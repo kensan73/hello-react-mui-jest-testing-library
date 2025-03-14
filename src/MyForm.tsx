@@ -68,7 +68,7 @@ export const MyForm: React.FC<OwnProps> = ({ initialTableSelection, effectiveHou
                             online availability
                         </ToggleButton>
                     </ToggleButtonGroup>
-                    <TabContext value='selectedTab'>
+                    <TabContext value={values.selectedTab}>
                         <Tabs
                             value={values.selectedTab}
                             onChange={handleTabChange}
